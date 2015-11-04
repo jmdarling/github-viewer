@@ -4,17 +4,20 @@
 <head>
     <script data-require="angular.js@*" data-semver="1.4.7" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
     <script src="scripts/script.js"></script>
+    <link href="styles/styles.css" rel="stylesheet"/>
 </head>
 
 <body ng-controller="MainController">
-<h1>{{message}}</h1>
-<p>{{error}}</p>
+<div class="container">
+    <h1>{{message}}</h1>
+    <p>{{error}}</p>
 
-<form name="searchUser" ng-submit="search()">
-    <input type="search" placeholder="Username to find" ng-model="username" required />
-    <input type="submit" value="Search" />
-</form>
+    <form name="searchUser" ng-submit="search()">
+        <input type="search" placeholder="Username to find" ng-model="username" required />
+        <input type="submit" value="Search" />
+    </form>
 
-<div class="user-information" ng-include="'includes/user-details.html'" ng-show="user"></div>
+    <div class="user-information" ng-include="'includes/user-details.html'" ng-show="user"></div>
+</div>
 </body>
 </html>

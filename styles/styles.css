@@ -1,0 +1,15 @@
+/* Base styles */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    color: #333333;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Components */
+.container {
+    margin: 0 auto;
+    width: 1200px;
+}
