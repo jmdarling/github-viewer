@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('app', []);
 
-    function MainController($scope, $http) {
+    function MainController($scope, $http, $interval) {
         var userBaseUrl = "https://api.github.com/users/";
 
         function onUserSearchSuccess(response) {
@@ -33,11 +33,25 @@
             promise.then(onRepoSearchSuccess, onSearchFailure);
         }
 
+        function decrementCountdown() {
+            $scope.countdown--;
+            if($scope.countdown <= 0)
+                userSearch();
+        }
+
+        function startCountdown() {
+            $interval(decrementCountdown, 1000, $scope.countdown);
+        }
+
         $scope.message = "GitHub Viewer";
         $scope.username = "angular";
         $scope.repoSortOrder = "-stargazers_count";
+        $scope.countdown = 5;
+
         $scope.search = userSearch;
+
+        startCountdown();
     }
 
-    app.controller('MainController', ['$scope', '$http', MainController]);
+    app.controller('MainController', ['$scope', '$http', '$interval',MainController]);
 })();
