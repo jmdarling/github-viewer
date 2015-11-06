@@ -4,6 +4,7 @@
 <head>
     <script data-require="angular.js@*" data-semver="1.4.7" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="services/github.js"></script>
     <link href="styles/styles.css" rel="stylesheet"/>
 </head>
 
@@ -18,7 +19,7 @@
         <input type="submit" value="Search" />
     </form>
 
-    <div class="user-information" ng-include="'includes/user-details.html'" ng-show="user"></div>
+    <div class="user-information" id="user-information" ng-include="'includes/user-details.html'" ng-show="user"></div>
 </div>
 </body>
 </html>

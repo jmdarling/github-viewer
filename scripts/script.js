@@ -1,18 +1,20 @@
 (function() {
     var app = angular.module('app', []);
 
-    function MainController($scope, $http, $interval) {
-        var userBaseUrl = "https://api.github.com/users/";
+    function MainController($scope, github, $interval, $log, $anchorScroll, $location) {
 
-        function onUserSearchSuccess(response) {
+
+        function onUserSearchSuccess(data) {
             $scope.error = null;
 
-            $scope.user = response.data;
-            repoSearch(response.data.repos_url)
+            $scope.user = data;
+            github.getRepos($scope.user).then(onRepoSearchSuccess, onSearchFailure);
         }
 
-        function onRepoSearchSuccess(response) {
-            $scope.repos = response.data;
+        function onRepoSearchSuccess(data) {
+            $scope.repos = data;
+            $location.hash('userDetails');
+            $anchorScroll();
         }
 
         function onSearchFailure(response) {
@@ -22,15 +24,14 @@
         }
 
         function userSearch() {
-            var promise = $http.get(userBaseUrl + $scope.username);
+            $log.info('Searching for ' + $scope.username);
 
-            promise.then(onUserSearchSuccess, onSearchFailure);
-        }
+            github.getUser($scope.username).then(onUserSearchSuccess, onSearchFailure);
 
-        function repoSearch(url) {
-            var promise = $http.get(url);
-
-            promise.then(onRepoSearchSuccess, onSearchFailure);
+            if(countdownInterval) {
+                $interval.cancel(countdownInterval);
+            }
+            $scope.countdown = null;
         }
 
         function decrementCountdown() {
@@ -39,8 +40,9 @@
                 userSearch();
         }
 
+        var countdownInterval = null;
         function startCountdown() {
-            $interval(decrementCountdown, 1000, $scope.countdown);
+            countdownInterval = $interval(decrementCountdown, 1000, $scope.countdown);
         }
 
         $scope.message = "GitHub Viewer";
@@ -53,5 +55,5 @@
         startCountdown();
     }
 
-    app.controller('MainController', ['$scope', '$http', '$interval',MainController]);
+    app.controller('MainController', ['$scope', 'github', '$interval', '$log', '$anchorScroll', '$location', MainController]);
 })();
