@@ -3,12 +3,12 @@
 
 <head>
     <script data-require="angular.js@*" data-semver="1.4.7" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
-    <script src="scripts/script.js"></script>
-    <script src="services/github.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/mainController.js"></script>
     <link href="styles/styles.css" rel="stylesheet"/>
 </head>
 
-<body>
-
+<body ng-controller="mainController">
+    {{message}}
 </body>
 </html>
