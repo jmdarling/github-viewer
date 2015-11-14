@@ -4,11 +4,14 @@
 <head>
     <script data-require="angular.js@*" data-semver="1.4.7" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="scripts/githubDataService.js"></script>
     <script src="scripts/mainController.js"></script>
     <link href="styles/styles.css" rel="stylesheet"/>
 </head>
 
 <body ng-controller="mainController">
-    {{message}}
+    <input type="text" ng-model="userNameSearch" ng-change="inputChange()"/>
+
+    <p>{{user.login}}</p>
 </body>
 </html>

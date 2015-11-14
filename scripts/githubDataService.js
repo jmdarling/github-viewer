@@ -1,6 +1,6 @@
 (function() {
     function githubDataService($http) {
-        var baseUrl = 'api.github.com/';
+        var baseUrl = '//api.github.com/';
 
         this.getUser = function(userName) {
             return $http.get(baseUrl + 'users/' + userName);
